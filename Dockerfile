@@ -12,10 +12,10 @@ RUN apk add --no-cache python alpine-sdk libressl libressl-dev libcap libcap-dev
     && pip install ply \
     && cd / && git clone https://github.com/isc-projects/bind9.git \
     && cd /bind9 && ./configure --enable-fixed-rrset --with-geoip && make && make install \
-    && cd / && apk del alpine-sdk libressl-dev libcap-dev perl-dev \
+    && mkdir /var/bind \
+    && cd / && apk del alpine-sdk libressl-dev libcap-dev \
     && apk add --update gcc \
-    && rm -rf /var/cache/apk/* /bind9 /perl-5.28.1* /root/.cache /usr/lib/python*/ensurepip \
-    && mkdir /var/bind
+    && rm -rf /var/cache/apk/* /bind9 /perl-5.28.1* /root/.cache /usr/lib/python*/ensurepip
 
 VOLUME ["/etc/bind", "/var/log/named"]
 EXPOSE 53/tcp 53/udp
